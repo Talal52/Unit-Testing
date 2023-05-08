@@ -22,18 +22,14 @@ func getKey(c *gin.Context) {
 
 func deleteKey(c *gin.Context) {
 	input := c.Param("input")
-	_, exists := data[input]
-	if exists {
-		delete(data, input)
-		c.JSON(http.StatusOK, gin.H{
-			"message": "deleted successfully",
-			"data":    data,
+	output, err := api.DeleteKeyAPI(c, input, data)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error": err.Error(),
 		})
-	} else {
-		c.JSON(http.StatusNotFound, gin.H{
-			"error": "entered key not found",
-		})
+		return
 	}
+	c.JSON(http.StatusOK, output)
 }
 
 func updateKey(c *gin.Context) {

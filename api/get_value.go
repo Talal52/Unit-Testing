@@ -17,3 +17,20 @@ func GetKeyAPI(c *gin.Context, input string, data map[string]string) string {
 		return "entered Key is not found!!!"
 	}
 }
+
+func DeleteKeyAPI(c *gin.Context, input string, data map[string]string) (interface{}, error) {
+	_, exists := data[input]
+	if exists {
+		delete(data, input)
+		return data, nil
+		// c.JSON(http.StatusOK, gin.H{
+		// 	"message": "deleted successfully",
+		// 	"data":    data,
+		// })
+	} else {
+		// c.JSON(http.StatusNotFound, gin.H{
+		// 	"error": "entered key not found",
+		// })
+		return "Entered key not found", nil
+	}
+}
