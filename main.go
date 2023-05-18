@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"goapi/controller"
 
 	"github.com/gin-gonic/gin"
@@ -13,11 +14,7 @@ func main() {
 	router.DELETE("/delete/:key", controller.DeleteKey)
 	router.PUT("/update", controller.UpdateKey)
 	router.POST("/store", controller.StoreKey)
-	//router.GET("/display", displayKeys)
-	router.GET("/display", func(c *gin.Context) {
-		data = map[string]string{"name": "talal"}
-		controller.DisplayKeys(c, data)
-	})
-
+	router.GET("/display", controller.DisplayKeys)
+	fmt.Println(data)
 	router.Run(":8080")
 }
